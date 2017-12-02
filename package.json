@@ -1,0 +1,85 @@
+{
+    "name": "master2-ConceptionEtCertificationDeLogicielsCritiques-MyBand-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "private": false,
+    "scripts": {
+        "packaging": "make packaging",
+        "prebuild": "make pretest && make clean",
+        "build": "make tsc",
+        "postbuild": "make packaging",
+        "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/bellec1u/master2-ConceptionEtCertificationDeLogicielsCritiques-MyBand-backend.git"
+    },
+    "keywords": [
+        "HapiJS",
+        "Hapi",
+        "Hapiness",
+        "Framework",
+        "NodeJS",
+        "Node",
+        "HTTP",
+        "API",
+        "REST",
+        "Streams",
+        "Async",
+        "Decorator",
+        "RxJS",
+        "Rx",
+        "ReactiveX",
+        "Observable",
+        "Observer",
+        "Module",
+        "ES2015",
+        "ES2016",
+        "ES2017",
+        "ES6",
+        "ES7",
+        "ES8",
+        "Typescript"
+    ],
+    "contributors": [
+        {
+            "name": "Nicolas Jessel",
+            "url": "https://github.com/njl07"
+        },
+        {
+            "name": "Léopold Bellec",
+            "url": "https://github.com/bellec1u"
+        },
+        {
+            "name": "Karim Djenkal",
+            "url": "https://github.com/Djenkal"
+        }
+    ],
+    "license": "SEE LICENSE IN https://github.com/njl07/nwt-school-back/blob/master/LICENSE.md",
+    "dependencies": {
+        "@hapiness/biim": "^1.4.0",
+        "@hapiness/config": "^1.1.0",
+        "@hapiness/core": "^1.2.2",
+        "@hapiness/logger": "^1.1.0",
+        "@hapiness/mongo": "^1.1.0",
+        "@hapiness/swag": "^1.1.0",
+        "@types/joi": "^13.0.0",
+        "@types/node": "^8.0.53",
+        "debug": "^3.1.0",
+        "hapi-auth-jwt2": "^7.3.0",
+        "rxjs": "^5.5.2"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^4.0.5",
+        "concurrently": "^3.5.1",
+        "fs-extra": "^4.0.2",
+        "nodemon": "^1.12.1",
+        "rimraf": "^2.6.2",
+        "ts-node": "^3.3.0",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1"
+    },
+    "engines": {
+        "node": ">=7.0.0"
+    }
+}
