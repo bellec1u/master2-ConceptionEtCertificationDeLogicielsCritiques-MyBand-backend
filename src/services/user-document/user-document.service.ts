@@ -8,12 +8,12 @@ import { _throw } from 'rxjs/observable/throw';
 import { flatMap, filter, map } from 'rxjs/operators';
 import { mergeStatic } from 'rxjs/operators/merge';
 
-import { InstrumentModel } from '../../models';
-import { Instrument } from '../../interfaces';
+import { UserModel } from '../../models';
+import { User } from '../../interfaces';
 import { Config } from '@hapiness/config';
 
 @Injectable()
-export class InstrumentDocumentService {
+export class UserDocumentService {
     // private property to store document instance
     private _document: any;
 
@@ -26,15 +26,15 @@ export class InstrumentDocumentService {
         this._document = this._mongoClientService.getModel({
             adapter: 'mongoose',
             options: Config.get('mongodb')
-        }, InstrumentModel);
+        }, UserModel);
     }
 
     /**
-     * Call mongoose method, call toJSON on each result and returns Instrument[] or undefined
+     * Call mongoose method, call toJSON on each result and returns User[] or undefined
      *
-     * @return {Observable<Instrument[] | void>}
+     * @return {Observable<User[] | void>}
      */
-    find(): Observable<Instrument[] | void> {
+    find(): Observable<User[] | void> {
         return fromPromise(this._document.find({}))
             .pipe(
                 flatMap((docs: MongooseDocument[]) =>
@@ -58,78 +58,78 @@ export class InstrumentDocumentService {
     }
 
     /**
-     * Returns one instrument of the list matching id in parameter
+     * Returns one user of the list matching id in parameter
      *
-     * @param {string} id of the instrument in the db
+     * @param {string} id of the user in the db
      *
-     * @return {Observable<Instrument | void>}
+     * @return {Observable<User | void>}
      */
-    findById(id: string): Observable<Instrument | void> {
+    findById(id: string): Observable<User | void> {
         return fromPromise(this._document.findById(id))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as User) :
                         of(undefined)
                 )
             )
     }
 
     /**
-     * Check if instrument already exists and add it in instrument list
+     * Check if user already exists and add it in user list
      *
-     * @param {Instrument} instrument to create
+     * @param {User} user to create
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<User>}
      */
-    create(instrument: Instrument): Observable<Instrument> {
+    create(user: User): Observable<User> {
         return fromPromise(this._document.findOne({
-            name: { $regex: new RegExp(instrument.name, 'i') },
-            type: { $regex: new RegExp(instrument.type, 'i') }
+            firstname: { $regex: new RegExp(user.firstname, 'i') },
+            lastname: { $regex: new RegExp(user.lastname, 'i') }
         }))
             .pipe(
                 flatMap(_ => !!_ ?
                     _throw(
-                        new Error(`Instrument with name '${instrument.name}' and type '${instrument.type}' already exists`)
+                        new Error(`User with firstname '${user.firstname}' and lastname '${user.lastname}' already exists`)
                     ) :
-                    fromPromise(this._document.create(instrument))
+                    fromPromise(this._document.create(user))
                 ),
-                map((doc: MongooseDocument) => doc.toJSON() as Instrument)
+                map((doc: MongooseDocument) => doc.toJSON() as User)
             );
     }
 
     /**
-     * Update an instrument in instrument list
+     * Update a user in user list
      *
      * @param {string} id
-     * @param {Instrument} instrument
+     * @param {User} user
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<User>}
      */
-    findByIdAndUpdate(id: string, instrument: Instrument): Observable<Instrument> {
-        return fromPromise(this._document.findByIdAndUpdate(id, instrument, { new: true }))
+    findByIdAndUpdate(id: string, user: User): Observable<User> {
+        return fromPromise(this._document.findByIdAndUpdate(id, user, { new: true }))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as User) :
                         of(undefined)
                 )
             )
     }
 
     /**
-     * Delete an instrument in instrument list
+     * Delete a user in user list
      *
      * @param {string} id
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<User>}
      */
-    findByIdAndRemove(id: string): Observable<Instrument> {
+    findByIdAndRemove(id: string): Observable<User> {
         return fromPromise(this._document.findByIdAndRemove(id))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as User) :
                         of(undefined)
                 )
             )

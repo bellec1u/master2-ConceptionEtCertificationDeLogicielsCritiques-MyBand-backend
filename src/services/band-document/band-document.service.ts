@@ -8,12 +8,12 @@ import { _throw } from 'rxjs/observable/throw';
 import { flatMap, filter, map } from 'rxjs/operators';
 import { mergeStatic } from 'rxjs/operators/merge';
 
-import { InstrumentModel } from '../../models';
-import { Instrument } from '../../interfaces';
+import { BandModel } from '../../models';
+import { Band } from '../../interfaces';
 import { Config } from '@hapiness/config';
 
 @Injectable()
-export class InstrumentDocumentService {
+export class BandDocumentService {
     // private property to store document instance
     private _document: any;
 
@@ -26,15 +26,15 @@ export class InstrumentDocumentService {
         this._document = this._mongoClientService.getModel({
             adapter: 'mongoose',
             options: Config.get('mongodb')
-        }, InstrumentModel);
+        }, BandModel);
     }
 
     /**
-     * Call mongoose method, call toJSON on each result and returns Instrument[] or undefined
+     * Call mongoose method, call toJSON on each result and returns Band[] or undefined
      *
-     * @return {Observable<Instrument[] | void>}
+     * @return {Observable<Band[] | void>}
      */
-    find(): Observable<Instrument[] | void> {
+    find(): Observable<Band[] | void> {
         return fromPromise(this._document.find({}))
             .pipe(
                 flatMap((docs: MongooseDocument[]) =>
@@ -58,78 +58,77 @@ export class InstrumentDocumentService {
     }
 
     /**
-     * Returns one instrument of the list matching id in parameter
+     * Returns one band of the list matching id in parameter
      *
-     * @param {string} id of the instrument in the db
+     * @param {string} id of the band in the db
      *
-     * @return {Observable<Instrument | void>}
+     * @return {Observable<Band | void>}
      */
-    findById(id: string): Observable<Instrument | void> {
+    findById(id: string): Observable<Band | void> {
         return fromPromise(this._document.findById(id))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as Band) :
                         of(undefined)
                 )
             )
     }
 
     /**
-     * Check if instrument already exists and add it in instrument list
+     * Check if band already exists and add it in band list
      *
-     * @param {Instrument} instrument to create
+     * @param {Band} band to create
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<Band>}
      */
-    create(instrument: Instrument): Observable<Instrument> {
+    create(band: Band): Observable<Band> {
         return fromPromise(this._document.findOne({
-            name: { $regex: new RegExp(instrument.name, 'i') },
-            type: { $regex: new RegExp(instrument.type, 'i') }
+            name: { $regex: new RegExp(band.name, 'i') }
         }))
             .pipe(
                 flatMap(_ => !!_ ?
                     _throw(
-                        new Error(`Instrument with name '${instrument.name}' and type '${instrument.type}' already exists`)
+                        new Error(`Band with name '${band.name}' already exists`)
                     ) :
-                    fromPromise(this._document.create(instrument))
+                    fromPromise(this._document.create(band))
                 ),
-                map((doc: MongooseDocument) => doc.toJSON() as Instrument)
+                map((doc: MongooseDocument) => doc.toJSON() as Band)
             );
     }
 
     /**
-     * Update an instrument in instrument list
+     * Update a band in band list
      *
      * @param {string} id
-     * @param {Instrument} instrument
+     * @param {Band} band
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<Band>}
      */
-    findByIdAndUpdate(id: string, instrument: Instrument): Observable<Instrument> {
-        return fromPromise(this._document.findByIdAndUpdate(id, instrument, { new: true }))
+    findByIdAndUpdate(id: string, band: Band): Observable<Band> {
+        return fromPromise(this._document.findByIdAndUpdate(id, band, { new: true }))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as Band) :
                         of(undefined)
                 )
             )
     }
 
     /**
-     * Delete an instrument in instrument list
+     * Delete a band in band list
      *
      * @param {string} id
      *
-     * @return {Observable<Instrument>}
+     * @return {Observable<Band>}
      */
-    findByIdAndRemove(id: string): Observable<Instrument> {
+    findByIdAndRemove(id: string): Observable<Band> {
         return fromPromise(this._document.findByIdAndRemove(id))
             .pipe(
                 flatMap((doc: MongooseDocument) =>
                     !!doc ?
-                        of(doc.toJSON() as Instrument) :
+                        of(doc.toJSON() as Band) :
                         of(undefined)
                 )
             )

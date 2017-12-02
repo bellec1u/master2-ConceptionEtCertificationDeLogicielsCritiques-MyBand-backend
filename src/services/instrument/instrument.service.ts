@@ -61,12 +61,12 @@ export class InstrumentService {
     }
 
     /**
-     * Update an instrument in people list
+     * Update an instrument in instrument list
      *
-     * @param {string} id of the person to update
-     * @param person data to update
+     * @param {string} id of the instrument to update
+     * @param instrument data to update
      *
-     * @returns {Observable<People>}
+     * @returns {Observable<Instrument>}
      */
     update(id: string, instrument: Instrument): Observable<Instrument> {
         return this._instrumentDocumentService.findByIdAndUpdate(id, instrument)
