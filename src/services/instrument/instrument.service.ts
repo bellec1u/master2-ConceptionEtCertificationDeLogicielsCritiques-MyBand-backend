@@ -3,57 +3,57 @@ import { HapinessHTTPHandlerResponse } from '@hapiness/core/extensions/http-serv
 import { Biim } from '@hapiness/biim';
 import { Observable } from 'rxjs/Observable';
 
-import { People } from '../../interfaces';
-import { PeopleDocumentService } from '../people-document';
+import { Instrument } from '../../interfaces';
+import { InstrumentDocumentService } from '../instrument-document';
 
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { flatMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
-export class PeopleService {
+export class InstrumentService {
     /**
      * Class constructor
      */
-    constructor(private _peopleDocumentService: PeopleDocumentService) {}
+    constructor(private _instrumentDocumentService: InstrumentDocumentService) {}
 
     /**
-     * Returns all existing people in the list
+     * Returns all existing instrument in the list
      *
-     * @returns {Observable<People[]>}
+     * @returns {Observable<Instrument[]>}
      */
-    listAll(): Observable<People[] | void> {
-        return this._peopleDocumentService.find();
+    listAll(): Observable<Instrument[] | void> {
+        return this._instrumentDocumentService.find();
     }
 
     /**
-     * Returns one people of the list matching id in parameter
+     * Returns one instrument of the list matching id in parameter
      *
-     * @param {string} id of the people
+     * @param {string} id of the instrument
      *
-     * @returns {Observable<People>}
+     * @returns {Observable<Instrument>}
      */
-    one(id: string): Observable<People> {
-        return this._peopleDocumentService.findById(id)
+    one(id: string): Observable<Instrument> {
+        return this._instrumentDocumentService.findById(id)
             .pipe(
                 catchError(e => _throw(Biim.preconditionFailed(e.message))),
                 flatMap(_ =>
                     !!_ ?
                         of(_) :
-                        _throw(Biim.notFound(`People with id '${id}' not found`))
+                        _throw(Biim.notFound(`Instrument with id '${id}' not found`))
                 )
             );
     }
 
     /**
-     * Check if person already exists and add it in people list
+     * Check if instrument already exists and add it in instrument list
      *
-     * @param person to create
+     * @param instrument to create
      *
      * @returns {Observable<HapinessHTTPHandlerResponse>}
      */
-    create(person: People): Observable<HapinessHTTPHandlerResponse> {
-        return this._peopleDocumentService.create(person)
+    create(instrument: Instrument): Observable<HapinessHTTPHandlerResponse> {
+        return this._instrumentDocumentService.create(instrument)
             .pipe(
                 catchError(e => _throw(Biim.conflict(e.message))),
                 map(_ => ({ response: _, statusCode: 201 }))
@@ -61,40 +61,40 @@ export class PeopleService {
     }
 
     /**
-     * Update a person in people list
+     * Update an instrument in people list
      *
      * @param {string} id of the person to update
      * @param person data to update
      *
      * @returns {Observable<People>}
      */
-    update(id: string, person: People): Observable<People> {
-        return this._peopleDocumentService.findByIdAndUpdate(id, person)
+    update(id: string, instrument: Instrument): Observable<Instrument> {
+        return this._instrumentDocumentService.findByIdAndUpdate(id, instrument)
             .pipe(
                 catchError(e => _throw(Biim.preconditionFailed(e.message))),
                 flatMap(_ =>
                     !!_ ?
                         of(_) :
-                        _throw(Biim.notFound(`People with id '${id}' not found`))
+                        _throw(Biim.notFound(`Instrument with id '${id}' not found`))
                 )
             );
     }
 
     /**
-     * Deletes on person in people list
+     * Delete one instrument in instrument list
      *
-     * @param {string} id of the person to delete
+     * @param {string} id of the instrument to delete
      *
      * @returns {Observable<any>}
      */
     delete(id: string): Observable<void> {
-        return this._peopleDocumentService.findByIdAndRemove(id)
+        return this._instrumentDocumentService.findByIdAndRemove(id)
             .pipe(
                 catchError(e => _throw(Biim.preconditionFailed(e.message))),
                 flatMap(_ =>
                     !!_ ?
                         of(undefined) :
-                        _throw(Biim.notFound(`People with id '${id}' not found`))
+                        _throw(Biim.notFound(`Instrument with id '${id}' not found`))
                 )
             );
     }

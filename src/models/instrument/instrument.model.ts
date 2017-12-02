@@ -3,10 +3,10 @@ import { Config } from '@hapiness/config';
 
 @MongoModel({
     adapter: 'mongoose',
-    collection: 'peoples',
+    collection: 'instruments',
     options: Config.get('mongodb')
 })
-export class PeopleModel extends Model {
+export class InstrumentModel extends Model {
     // property to store schema
     readonly schema: any;
 
@@ -17,43 +17,20 @@ export class PeopleModel extends Model {
      */
     constructor(private _mongoClientService: MongoClientService) {
         // call parent constructor
-        super(PeopleModel);
+        super(InstrumentModel);
 
         // get dao
         const dao = this._mongoClientService.getDao(this.connectionOptions);
 
         // create schema
         this.schema = new dao.Schema({
-            photo: String,
-            firstname: {
+            name: {
                 type: String,
                 required: true
             },
-            lastname: {
+            type: {
                 type: String,
                 required: true
-            },
-            email: {
-                type: String,
-                required: true
-            },
-            phone: {
-                type: String,
-                required: true
-            },
-            address: {
-                street: {
-                    type: String,
-                    required: true
-                },
-                postalCode: {
-                    type: Number,
-                    required: true
-                },
-                city: {
-                    type: String,
-                    required: true
-                }
             }
         }, {
             versionKey: false

@@ -4,20 +4,20 @@ import { SwagModule } from '@hapiness/swag';
 import { Config } from '@hapiness/config';
 import { MongoClientService, MongoModule } from '@hapiness/mongo';
 import { Observable } from 'rxjs/Observable';
+
 import {
-    GetHelloWorldRoute,
-    GetAllPeopleRoute,
-    GetOnePeopleRoute,
-    PostCreatePeopleRoute,
-    PutUpdatePeopleRoute,
-    DeleteOnePeopleRoute
+    GetAllInstrumentRoute,
+    GetOneInstrumentRoute,
+    PostCreateInstrumentRoute,
+    PutUpdateInstrumentRoute,
+    DeleteOneInstrumentRoute
 } from './routes';
-import { PeopleService, PeopleDocumentService } from './services';
-import { PeopleModel } from './models';
+import { InstrumentService, InstrumentDocumentService } from './services';
+import { InstrumentModel } from './models';
 
 // factory to declare dependency between PeopleDocumentService and MongoClientService
 // we use it to be sure that MongoClientService will be loaded before PeopleDocumentService
-const peopleDocumentFactory = (mongoClientService: MongoClientService) => new PeopleDocumentService(mongoClientService);
+const instrumentDocumentFactory = (mongoClientService: MongoClientService) => new InstrumentDocumentService(mongoClientService);
 
 @HapinessModule({
     version: '1.0.0',
@@ -27,13 +27,13 @@ const peopleDocumentFactory = (mongoClientService: MongoClientService) => new Pe
         MongoModule
     ],
     declarations: [
-        GetHelloWorldRoute, GetAllPeopleRoute, GetOnePeopleRoute, PostCreatePeopleRoute, PutUpdatePeopleRoute, DeleteOnePeopleRoute,
-        PeopleModel
+        GetAllInstrumentRoute, GetOneInstrumentRoute, PostCreateInstrumentRoute, PutUpdateInstrumentRoute, DeleteOneInstrumentRoute,
+        InstrumentModel
     ],
     providers: [
         HttpServerService,
-        PeopleService,
-        { provide: PeopleDocumentService, useFactory: peopleDocumentFactory, deps: [MongoClientService] }
+        InstrumentService,
+        { provide: InstrumentDocumentService, useFactory: instrumentDocumentFactory, deps: [MongoClientService] }
     ]
 })
 export class ApplicationModule implements OnStart, OnError {

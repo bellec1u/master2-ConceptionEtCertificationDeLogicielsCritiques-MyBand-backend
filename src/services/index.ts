@@ -1,2 +1,2 @@
-export * from './people';
-export * from './people-document';
+export * from './instrument';
+export * from './instrument-document';

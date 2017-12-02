@@ -1,11 +1,11 @@
 import { OnDelete, Route, Request } from '@hapiness/core';
 import { Observable } from 'rxjs/Observable';
-import { PeopleService } from '../../../services';
+import { InstrumentService } from '../../../services';
 
 import * as Joi from 'joi';
 
 @Route({
-    path: '/api/people/{id}',
+    path: '/api/instrument/{id}',
     method: 'DELETE',
     config: {
         validate: {
@@ -13,17 +13,17 @@ import * as Joi from 'joi';
                 id: Joi.string().required()
             }
         },
-        description: 'Delete people',
-        notes: 'Delete one people for the given id in path parameter',
-        tags: ['api', 'people']
+        description: 'Delete instrument',
+        notes: 'Delete one instrument for the given id in path parameter',
+        tags: ['api', 'instrument']
     }
 })
-export class DeleteOnePeopleRoute implements OnDelete {
+export class DeleteOneInstrumentRoute implements OnDelete {
     /**
      * Class constructor
-     * @param _peopleService
+     * @param _instrumentService
      */
-    constructor(private _peopleService: PeopleService) {
+    constructor(private _instrumentService: InstrumentService) {
     }
 
     /**
@@ -31,6 +31,6 @@ export class DeleteOnePeopleRoute implements OnDelete {
      * @param request
      */
     onDelete(request: Request): Observable<void> {
-        return this._peopleService.delete(request.params.id);
+        return this._instrumentService.delete(request.params.id);
     }
 }
