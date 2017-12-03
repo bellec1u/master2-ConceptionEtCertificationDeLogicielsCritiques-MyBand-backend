@@ -8,17 +8,20 @@ import { Observable } from 'rxjs/Observable';
 import {
     GetAllInstrumentRoute, GetOneInstrumentRoute, PostCreateInstrumentRoute, PutUpdateInstrumentRoute, DeleteOneInstrumentRoute,
     GetAllBandRoute, GetOneBandRoute, PostCreateBandRoute, PutUpdateBandRoute, DeleteOneBandRoute,
-    GetAllUserRoute, GetOneUserRoute, PostCreateUserRoute, PutUpdateUserRoute, DeleteOneUserRoute
+    GetAllUserRoute, GetOneUserRoute, PostCreateUserRoute, PutUpdateUserRoute, DeleteOneUserRoute,
+    GetAllResearchRoute, GetOneResearchRoute, PostCreateResearchRoute, PutUpdateResearchRoute, DeleteOneResearchRoute
 } from './routes';
 import {
     InstrumentService, InstrumentDocumentService,
     BandService, BandDocumentService,
-    UserService, UserDocumentService
+    UserService, UserDocumentService,
+    ResearchService, ResearchDocumentService
 } from './services';
 import {
     InstrumentModel,
     BandModel,
-    UserModel
+    UserModel,
+    ResearchModel
 } from './models';
 
 // factory to declare dependency between PeopleDocumentService and MongoClientService
@@ -26,6 +29,7 @@ import {
 const instrumentDocumentFactory = (mongoClientService: MongoClientService) => new InstrumentDocumentService(mongoClientService);
 const bandDocumentFactory = (mongoClientService: MongoClientService) => new BandDocumentService(mongoClientService);
 const userDocumentFactory = (mongoClientService: MongoClientService) => new UserDocumentService(mongoClientService);
+const researchDocumentFactory = (mongoClientService: MongoClientService) => new ResearchDocumentService(mongoClientService);
 
 @HapinessModule({
     version: '1.0.0',
@@ -38,18 +42,22 @@ const userDocumentFactory = (mongoClientService: MongoClientService) => new User
         GetAllInstrumentRoute, GetOneInstrumentRoute, PostCreateInstrumentRoute, PutUpdateInstrumentRoute, DeleteOneInstrumentRoute,
         GetAllBandRoute, GetOneBandRoute, PostCreateBandRoute, PutUpdateBandRoute, DeleteOneBandRoute,
         GetAllUserRoute, GetOneUserRoute, PostCreateUserRoute, PutUpdateUserRoute, DeleteOneUserRoute,
+        GetAllResearchRoute, GetOneResearchRoute, PostCreateResearchRoute, PutUpdateResearchRoute, DeleteOneResearchRoute,
         InstrumentModel,
         BandModel,
-        UserModel
+        UserModel,
+        ResearchModel
     ],
     providers: [
         HttpServerService,
         InstrumentService,
         BandService,
         UserService,
+        ResearchService,
         { provide: InstrumentDocumentService, useFactory: instrumentDocumentFactory, deps: [MongoClientService] },
         { provide: BandDocumentService, useFactory: bandDocumentFactory, deps: [MongoClientService] },
-        { provide: UserDocumentService, useFactory: userDocumentFactory, deps: [MongoClientService] }
+        { provide: UserDocumentService, useFactory: userDocumentFactory, deps: [MongoClientService] },
+        { provide: ResearchDocumentService, useFactory: researchDocumentFactory, deps: [MongoClientService] }
     ]
 })
 export class ApplicationModule implements OnStart, OnError {
