@@ -43,8 +43,8 @@ import * as Joi from 'joi';
                 })
             }
         },
-        description: 'Create one instrument',
-        notes: 'Create a new instrument and return it',
+        description: 'Create one band',
+        notes: 'Create a new band and return it',
         tags: ['api', 'band']
     }
 })
