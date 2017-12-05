@@ -41,6 +41,11 @@ mongodb:
 ```
 Before starting the project, you need to create, in MongoDB, the database with the same name that you gave in the file `config/default.yml`.
 
+## Init the contents of the database
+```
+$ mongo /src/data/initDB.js
+```
+
 ## Launch server 
 ```
 $ yarn run dev:watch
