@@ -180,10 +180,7 @@ var bands = [
         "description" : "The Offspring est un groupe de punk rock américain, originaire du Comté d'Orange, en Californie. Formé en 1984, il comprend actuellement Dexter Holland au chant et à la guitare rythmique, Greg K à la basse et aux chœurs, de Noodles à la guitare solo et aux chœurs, et de Pete Parada à la batterie, en remplacement de leur batteur historique Ron Welty.",
         "members" : [
         ],
-        "location" : {
-            "latitude" : 0,
-            "longitude" : 0
-        }
+        "location" : "USA"
     },
 
     /* 2 */
@@ -193,10 +190,7 @@ var bands = [
         "description" : "The Beatles est un groupe de rock britannique, originaire de Liverpool, en Angleterre. Formé en 1960, et composé de John Lennon, Paul McCartney, George Harrison et Ringo Starr, il est considéré le groupe de rock le plus populaire et influent de l'histoire. En dix ans d'existence et seulement huit ans de carrière discographique (de 1962 à 1970), les Beatles ont enregistré douze albums originaux et ont composé plus de 200 chansons. Influencés par le skiffle, la musique beat et le rock'n'roll des années 1950, ils ont rapidement fait évoluer leur style musical, abordant des genres aussi variés que la pop, la musique indienne, le rock psychédélique et le hard rock. Leurs expérimentations techniques et musicales, leur popularité mondiale et leur conscience politique grandissante au fil de leur carrière, ont étendu l'influence des Beatles au-delà de la musique, jusqu'aux révolutions sociales et culturelles de leur époque.",
         "members" : [
         ],
-        "location" : {
-            "latitude" : 0,
-            "longitude" : 0
-        }
+        "location" : "Liverpool"
     }
 ];
 

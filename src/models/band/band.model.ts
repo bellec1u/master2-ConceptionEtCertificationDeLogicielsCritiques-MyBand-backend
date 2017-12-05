@@ -34,14 +34,8 @@ export class BandModel extends Model {
                 required: true
             },
             location: {
-                latitude: {
-                    type: Number,
-                    require: true
-                },
-                longitude: {
-                    type: Number,
-                    require: true
-                }
+                type: String,
+                required: true
             },
             members: [String]
         }, {

@@ -18,10 +18,7 @@ import * as Joi from 'joi';
                 logo: Joi.string().required(),
                 name: Joi.string().required(),
                 description: Joi.string().required(),
-                location: Joi.object().keys({
-                    latitude: Joi.number().required(),
-                    longitude: Joi.number().required()
-                }),
+                location: Joi.string().required(),
                 members: Joi.array().items( Joi.string().required() ).min(1).required()
             })
         },
@@ -37,10 +34,7 @@ import * as Joi from 'joi';
                     logo: Joi.string().required(),
                     name: Joi.string().required(),
                     description: Joi.string().required(),
-                    location: Joi.object().keys({
-                        latitude: Joi.number().required(),
-                        longitude: Joi.number().required()
-                    }),
+                    location: Joi.string().required(),
                     members: Joi.array().items( Joi.string().required() ).min(1).required()
                 })
             }

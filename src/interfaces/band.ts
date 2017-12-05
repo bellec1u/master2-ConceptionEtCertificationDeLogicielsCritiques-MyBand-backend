@@ -3,11 +3,6 @@ export interface Band {
     logo?: string;
     name: string;
     description: string;
-    location: Location
+    location: string
     members: [string]
-}
-
-export interface Location {
-    latitude: number,
-    longitude: number
 }
