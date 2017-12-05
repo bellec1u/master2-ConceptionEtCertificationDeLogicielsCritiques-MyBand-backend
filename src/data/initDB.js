@@ -156,6 +156,19 @@ var users = [
             "voix",
             "piano"
         ]
+    },
+
+    /* 9 */
+    {
+        "firstname" : "toto",
+        "lastname" : "tata",
+        "favoriteInstrument" : "batterie",
+        "band" : "",
+        "instruments" : [
+            "batterie",
+            "voix",
+            "piano"
+        ]
     }
 ];
 
@@ -228,7 +241,7 @@ for (i = 0; i < users.length; i++) {
 }
 
 // get users id
-usersID = [new Array(users.length/bands.length), new Array(users.length/bands.length)];
+usersID = [new Array(4), new Array(4)];
 usersCursor = db.users.find({});
 i = 0;
 j = 0;
@@ -251,14 +264,12 @@ db.bands.insert(bands);
 // update users with band
 j = 0
 for (i = 0; i < users.length; i++) {
-    if (i < 8) {
-        // find id band
-        idBand = db.bands.findOne({"name" : bands[j].name});
-        // update user
-        db.users.findOneAndUpdate({ "firstname" : users[i].firstname, "lastname" : users[i].lastname}, { $set: {"band" : idBand._id.valueOf()}});
-        if (i == 3)
-            j = 1;
-    }
+    // find id band
+    idBand = db.bands.findOne({"name" : bands[j].name});
+    // update user
+    db.users.findOneAndUpdate({ "firstname" : users[i].firstname, "lastname" : users[i].lastname}, { $set: {"band" : idBand._id.valueOf()}});
+    if (i == 4)
+        j = 1;
 }
 
 // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- insert research
